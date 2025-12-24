@@ -2,11 +2,63 @@
 <html lang="tg">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iskandar AI</title>
+  <title>Искандар AI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .messages {
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .msg {
+      margin: 5px 0;
+    }
+    .user { text-align: right; font-weight: bold; }
+    input {
+      width: 100%;
+      padding: 10px;
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif; text-align:center; margin-top:50px;">
-  <h1>Салом, ман Искандар AI ҳастам!</h1>
-  <p>Сайт кор мекунад — Render пайваст шуд.</p>
+<body>
+
+<div class="chat">
+  <h3>Искандар AI</h3>
+  <div class="messages" id="messages">
+    <div class="msg">Салом! Ман Искандар AI ҳастам.</div>
+  </div>
+  <input id="input" placeholder="Саволатро навис..." />
+</div>
+
+<script>
+  const input = document.getElementById('input');
+  const messages = document.getElementById('messages');
+
+  input.addEventListener('keypress', e => {
+    if (e.key === 'Enter' && input.value.trim()) {
+      const userMsg = input.value;
+      messages.innerHTML += `<div class="msg user">${userMsg}</div>`;
+      messages.innerHTML += `<div class="msg">Ман ҷавоб медиҳам…</div>`;
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+    }
+  });
+</script>
+
 </body>
 </html>

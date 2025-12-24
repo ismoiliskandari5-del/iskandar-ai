@@ -1,63 +1,136 @@
 <!DOCTYPE html>
 <html lang="tg">
 <head>
-  <meta charset="UTF-8">
-  <title>Искандар AI</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .chat {
-      width: 100%;
-      max-width: 400px;
-      background: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .messages {
-      height: 300px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-    }
-    .msg {
-      margin: 5px 0;
-    }
-    .user { text-align: right; font-weight: bold; }
-    input {
-      width: 100%;
-      padding: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Iskandar AI</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #0f172a;
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 420px;
+  height: 90vh;
+  background: #020617;
+  color: #e5e7eb;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  padding: 15px;
+  background: #020617;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* CHAT */
+.chat {
+  padding: 15px;
+  display: grid;
+  grid-auto-rows: min-content;
+  row-gap: 10px;
+  overflow-y: auto;
+}
+
+.user {
+  justify-self: end;
+  background: #2563eb;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.ai {
+  justify-self: start;
+  background: #1e293b;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+/* INPUT */
+.input-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 10px;
+  border-top: 1px solid #1e293b;
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  font-weight: bold;
+}
+</style>
 </head>
+
 <body>
 
-<div class="chat">
-  <h3>Искандар AI</h3>
-  <div class="messages" id="messages">
-    <div class="msg">Салом! Ман Искандар AI ҳастам.</div>
+<div class="app">
+
+  <div class="header">Iskandar AI</div>
+
+  <div class="chat" id="chat">
+    <div class="ai">Салом! Ман Iskandar AI ҳастам.</div>
   </div>
-  <input id="input" placeholder="Саволатро навис..." />
+
+  <div class="input-box">
+    <input id="input" placeholder="Савол навис..." />
+    <button onclick="send()">▶</button>
+  </div>
+
 </div>
 
 <script>
-  const input = document.getElementById('input');
-  const messages = document.getElementById('messages');
+function send() {
+  const input = document.getElementById("input");
+  const chat = document.getElementById("chat");
+  const text = input.value.toLowerCase();
 
-  input.addEventListener('keypress', e => {
-    if (e.key === 'Enter' && input.value.trim()) {
-      const userMsg = input.value;
-      messages.innerHTML += `<div class="msg user">${userMsg}</div>`;
-      messages.innerHTML += `<div class="msg">Ман ҷавоб медиҳам…</div>`;
-      input.value = '';
-      messages.scrollTop = messages.scrollHeight;
-    }
-  });
+  if (!text) return;
+
+  chat.innerHTML += `<div class="user">${input.value}</div>`;
+
+  let reply = "Ман ҳоло омӯзиш дорам.";
+
+  if (text.includes("салом")) reply = "Салом! Чӣ кӯмак кунам?";
+  else if (text.includes("ту кисти")) reply = "Ман AI ҳастам, бо Grid сохта шудам.";
+  else if (text.includes("код")) reply = "Ман метавонам HTML, CSS ва JS омӯзонам.";
+  else if (text.includes("исм")) reply = "Номи ман Iskandar AI.";
+
+  setTimeout(() => {
+    chat.innerHTML += `<div class="ai">${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 300);
+
+  input.value = "";
+}
 </script>
 
 </body>
